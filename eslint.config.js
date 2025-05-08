@@ -16,6 +16,12 @@ export default defineConfig([
     },
     tseslint.configs.recommended,
     {
+        files: ['**/*.test.{js,ts}'],
+        rules: {
+            'no-unused-vars': 'off',
+        },
+    },
+    {
         files: ['**/*.json'],
         plugins: { json },
         language: 'json/json',
