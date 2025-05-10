@@ -2,19 +2,10 @@
 USE-CASES DA CRIAÇÃO E VALIDAÇÃO DE USUÁRIO
 */
 import type { UsersRepository } from '@/repositories/prisma/users-repository.js';
-import type { User } from '@prisma/client';
-import { hash } from 'bcryptjs';
+import type { RegisterUseCaseParams } from '@/interfaces/RegisterUseCaseParams.js';
 import { UserAlreadyExistsError } from './errors/user-already-exists-error.ts';
-
-interface RegisterUseCaseParams {
-    name: string;
-    email: string;
-    password: string;
-}
-
-interface RegisterUseCaseResponse {
-    user: User;
-}
+import { hash } from 'bcryptjs';
+import type { RegisterUseCaseResponse } from '@/interfaces/RegisterUseCaseResponse.js';
 
 export class RegisterUseCase {
     // construtor privado que  recebe a tipagem para criar o usuário no db
