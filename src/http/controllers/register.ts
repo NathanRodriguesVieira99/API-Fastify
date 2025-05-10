@@ -2,20 +2,13 @@
 CONTROLLER QUE RECEBE E ENVIA AS REQUISIÇÕES DOS REPOSITORIES
 */
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { z } from 'zod';
 import { RegisterUseCase } from '../services/register.ts';
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository.ts';
 import { UserAlreadyExistsError } from '../services/errors/user-already-exists-error.ts';
+import { registerBodySchema } from '@/validators/registerBodySchema.ts';
 
 // método que  faz a request e reply da criação de usuário
 export async function register(request: FastifyRequest, reply: FastifyReply) {
-    // valida os dados do usuário que vai ser criado com zod
-    const registerBodySchema = z.object({
-        name: z.string(),
-        email: z.string().email(),
-        password: z.string().min(8),
-    });
-
     // extrai os dados validados do body da request
     const { name, email, password } = registerBodySchema.parse(request.body);
 
